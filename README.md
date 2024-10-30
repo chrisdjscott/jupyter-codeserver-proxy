@@ -15,7 +15,7 @@ pip install --user git+https://github.com/chrisdjscott/jupyter-codeserver-proxy
 
 The "VS Code (code-server)" app should be available via [https://jupyter.nesi.org.nz](https://jupyter.nesi.org.nz).
 
-### Known problems on NeSI
+## Known problems on NeSI
 
 - need to run "ml purge" in code server terminal
 - slurm not working properly
