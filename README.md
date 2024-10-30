@@ -9,6 +9,18 @@ Hence, we need to disable authentication at the moment completly with `--auth=no
 This allows any user who can access localhost:port of the machine running the `code-server` to use it - even if he is not authorized to do so. 
 An alternative solution to close this security hole might be to use unix sockets instead of ports. As soon as this is fully supported by `jupyter-server-proxy` we will switch [[more]](https://github.com/jupyterhub/jupyter-server-proxy/pull/337).
 
+## Installation on NeSI
+
+On Mahuika run:
+
+```
+ml purge
+ml JupyterLab
+pip install --user git+https://github.com/chrisdjscott/jupyter-codeserver-proxy
+```
+
+The "VS Code (code-server)" app should be available via [https://jupyter.nesi.org.nz](https://jupyter.nesi.org.nz).
+
 ## Requirements
 - Python 3.6+
 - Jupyter Notebook 6.0+
