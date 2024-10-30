@@ -37,5 +37,5 @@ setup(
     python_requires='>=3.6',
     install_requires=['jupyter-server-proxy>=3.1.0'],
     include_package_data=True,
-    zip_safe=False
+    zip_safe=False,
 )

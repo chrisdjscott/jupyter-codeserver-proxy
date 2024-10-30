@@ -1,5 +1,6 @@
 import os
 import logging
+import pkg_resources
 
 logger = logging.getLogger(__name__)
 logger.setLevel('INFO')
@@ -84,37 +85,32 @@ def setup_codeserver():
         logger.error("Passwd generation in temp file FAILED")
         raise FileNotFoundError("Passwd generation in temp file FAILED")
 
-    # launchers url file including url parameters
-    # path_info = 'codeserver/index.html' + _codeserver_urlparams()
+    # location of wrapper script
+    wrapper_script = pkg_resources.resource_filename('jupyter_codeserver_proxy', 'bin/code-server-wrapper.sh')
 
     # create command
     cmd = [
-        get_codeserver_executable('code-server'),
+        wrapper_script,
+        'code-server',
         '--auth=none',  # password
         '--disable-telemetry',
         '--disable-update-check',
-        '--socket={port}',
-        #'--bind-addr=0.0.0.0:{port}',
-        # '--user-data-dir=<path>',  # default: ~/.local/share/code-server
-        # '--config=<path>',  # default: ~/.config/code-server/config.yaml
-        # '--extensions-dir=<path>',  # default: .local/share/code-server/extensions
+        '--socket={unix_socket}',
         '--verbose',
     ]
-    logger.info('Code-Server command: ' + ' '.join(cmd))
+    logger.critical('Code-Server command: ' + ' '.join(cmd))
 
     return {
         'environment': {},
         'command': cmd,
-        'unix': True,
-        'port': 'codeserver',
-        # 'mappath': _codeserver_mappath,
+        'port': 0,
+        'unix_socket': True,
         'absolute_url': False,
-        'timeout': 90,
+        'timeout': 600,
         'new_browser_tab': True,
         'launcher_entry': {
             'enabled': True,
             'icon_path': os.path.join(HERE, 'icons/code-server-logo.svg'),
             'title': 'VS Code (code-server)',
-            # 'path_info': path_info,
         },
     }
